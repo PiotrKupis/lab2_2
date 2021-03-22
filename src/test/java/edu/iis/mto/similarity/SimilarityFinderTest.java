@@ -87,16 +87,26 @@ class SimilarityFinderTest {
     }
 
     @Test
+    void passTheSameArraysShouldReturnOneExecuteTenTimes() {
+        double result, expectedValue = 1;
+
+        for (int i = 0; i < 10; ++i) {
+            similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsTrue);
+            result = similarityFinder.calculateJackardSimilarity(firstArray, copyOfFirstArray);
+            assertEquals(expectedValue, result);
+        }
+    }
+
+    @Test
     void passEmptySequenceShouldReturnOneExecuteTenTimes() {
         double result, expectedValue = 1;
 
-        for(int i=0;i<10;++i) {
+        for (int i = 0; i < 10; ++i) {
             similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsTrue);
             result = similarityFinder.calculateJackardSimilarity(emptyArray, emptyArray);
             assertEquals(expectedValue, result);
         }
     }
-
 
 
 }
