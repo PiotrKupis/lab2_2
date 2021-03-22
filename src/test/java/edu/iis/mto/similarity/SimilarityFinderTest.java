@@ -38,6 +38,17 @@ class SimilarityFinderTest {
         }
     };
 
+    private int invocationCount = 0;
+    SequenceSearcher searcherWithInvocationCount = new SequenceSearcher() {
+        @Override
+        public SearchResult search(int elem, int[] sequence) {
+            SearchResult.Builder builder = SearchResult.builder();
+            builder.withFound(true);
+            invocationCount++;
+            return builder.build();
+        }
+    };
+
     private SimilarityFinder similarityFinder;
     private int[] emptyArray = new int[]{};
     private int[] firstArray = new int[]{1};
@@ -119,14 +130,13 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void passTheDifferentArraysShouldReturnZeroExecuteTenTimes() {
-        double result, expectedValue = 0;
+    void invokeMethodFiveTimesShouldReturnFive(){
+        int expectedValue = 5;
 
-        for (int i = 0; i < 10; ++i) {
-            similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsFalse);
-            result = similarityFinder.calculateJackardSimilarity(firstArray, secondArray);
-            assertEquals(expectedValue, result);
-        }
+        similarityFinder = new SimilarityFinder(searcherWithInvocationCount);
+        similarityFinder.calculateJackardSimilarity(thirdArray, fourthArray);
+
+        assertEquals(expectedValue, invocationCount);
     }
 
 
