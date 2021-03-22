@@ -16,6 +16,7 @@ class SimilarityFinderTest {
             return builder.build();
         }
     };
+
     SequenceSearcher searcherThatAlwaysReturnsFalse = new SequenceSearcher() {
         @Override
         public SearchResult search(int elem, int[] sequence) {
@@ -24,6 +25,7 @@ class SimilarityFinderTest {
             return builder.build();
         }
     };
+
     SequenceSearcher searcherThatReturnsTrueForNumberSmallerThanFive = new SequenceSearcher() {
         @Override
         public SearchResult search(int elem, int[] sequence) {
@@ -45,6 +47,23 @@ class SimilarityFinderTest {
             SearchResult.Builder builder = SearchResult.builder();
             builder.withFound(true);
             invocationCount++;
+            return builder.build();
+        }
+    };
+
+    private int findCount = 0;
+    SequenceSearcher searcherThatReturnsTrueForNumberSmallerThanFiveWithFindCount = new SequenceSearcher() {
+        @Override
+        public SearchResult search(int elem, int[] sequence) {
+            SearchResult.Builder builder = SearchResult.builder();
+
+            if (elem < 5) {
+                findCount++;
+                builder.withFound(true);
+            }
+            else
+                builder.withFound(false);
+
             return builder.build();
         }
     };
@@ -147,6 +166,16 @@ class SimilarityFinderTest {
         similarityFinder.calculateJackardSimilarity(emptyArray, firstArray);
 
         assertEquals(expectedValue, invocationCount);
+    }
+
+    @Test
+    void passArrayOfFiveElementsShouldFindTwoElements(){
+        int expectedValue = 2;
+
+        similarityFinder = new SimilarityFinder(searcherThatReturnsTrueForNumberSmallerThanFiveWithFindCount);
+        similarityFinder.calculateJackardSimilarity(thirdArray, fourthArray);
+
+        assertEquals(expectedValue, findCount);
     }
 
 
