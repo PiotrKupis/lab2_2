@@ -108,5 +108,16 @@ class SimilarityFinderTest {
         }
     }
 
+    @Test
+    void passTheDifferentArraysShouldReturnZeroExecuteTenTimes() {
+        double result, expectedValue = 0;
+
+        for (int i = 0; i < 10; ++i) {
+            similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsFalse);
+            result = similarityFinder.calculateJackardSimilarity(firstArray, secondArray);
+            assertEquals(expectedValue, result);
+        }
+    }
+
 
 }
