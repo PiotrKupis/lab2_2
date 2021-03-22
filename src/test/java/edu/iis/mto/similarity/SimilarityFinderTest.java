@@ -130,11 +130,21 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void invokeMethodFiveTimesShouldReturnFive(){
+    void passArrayOfFiveElementsShouldInvokeMethodFiveTimes(){
         int expectedValue = 5;
 
         similarityFinder = new SimilarityFinder(searcherWithInvocationCount);
         similarityFinder.calculateJackardSimilarity(thirdArray, fourthArray);
+
+        assertEquals(expectedValue, invocationCount);
+    }
+
+    @Test
+    void passEmptyArrayElementsShouldNotInvokeMethod(){
+        int expectedValue = 0;
+
+        similarityFinder = new SimilarityFinder(searcherWithInvocationCount);
+        similarityFinder.calculateJackardSimilarity(emptyArray, firstArray);
 
         assertEquals(expectedValue, invocationCount);
     }
