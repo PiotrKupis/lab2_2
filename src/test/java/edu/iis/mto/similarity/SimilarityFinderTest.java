@@ -77,7 +77,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void PassEmptySequenceShouldReturnOne() {
+    void passEmptySequenceShouldReturnOne() {
         double result, expectedValue = 1;
 
         similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsTrue);
@@ -85,4 +85,18 @@ class SimilarityFinderTest {
 
         assertEquals(expectedValue, result);
     }
+
+    @Test
+    void passEmptySequenceShouldReturnOneExecuteTenTimes() {
+        double result, expectedValue = 1;
+
+        for(int i=0;i<10;++i) {
+            similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsTrue);
+            result = similarityFinder.calculateJackardSimilarity(emptyArray, emptyArray);
+            assertEquals(expectedValue, result);
+        }
+    }
+
+
+
 }
