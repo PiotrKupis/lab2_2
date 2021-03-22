@@ -47,7 +47,7 @@ class SimilarityFinderTest {
     private int[] fourthArray = new int[]{11, 7, 8, 9, 10};
 
     @Test
-    void shouldReturnOne() {
+    void passTheSameArraysShouldReturnOne() {
         double result, expectedValue = 1;
 
         similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsTrue);
@@ -57,7 +57,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void shouldReturnZero() {
+    void passDifferentArraysShouldReturnZero() {
         double result, expectedValue = 0;
 
         similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsFalse);
@@ -67,7 +67,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void shouldReturnQuarter() {
+    void passPartlyTheSameArraysShouldReturnQuarter() {
         double result, expectedValue = 0.25;
 
         similarityFinder = new SimilarityFinder(searcherThatReturnsTrueForNumberSmallerThanFive);
@@ -82,6 +82,16 @@ class SimilarityFinderTest {
 
         similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsTrue);
         result = similarityFinder.calculateJackardSimilarity(emptyArray, emptyArray);
+
+        assertEquals(expectedValue, result);
+    }
+
+    @Test
+    void passOneArrayEmptyShouldReturnZero() {
+        double result, expectedValue = 0;
+
+        similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsFalse);
+        result = similarityFinder.calculateJackardSimilarity(emptyArray, firstArray);
 
         assertEquals(expectedValue, result);
     }
