@@ -39,6 +39,7 @@ class SimilarityFinderTest {
     };
 
     private SimilarityFinder similarityFinder;
+    private int[] emptyArray = new int[]{};
     private int[] firstArray = new int[]{1};
     private int[] copyOfFirstArray = new int[]{1};
     private int[] secondArray = new int[]{2};
@@ -71,6 +72,16 @@ class SimilarityFinderTest {
 
         similarityFinder = new SimilarityFinder(searcherThatReturnsTrueForNumberSmallerThanFive);
         result = similarityFinder.calculateJackardSimilarity(thirdArray, fourthArray);
+
+        assertEquals(expectedValue, result);
+    }
+
+    @Test
+    void PassEmptySequenceShouldReturnOne() {
+        double result, expectedValue = 1;
+
+        similarityFinder = new SimilarityFinder(searcherThatAlwaysReturnsTrue);
+        result = similarityFinder.calculateJackardSimilarity(emptyArray, emptyArray);
 
         assertEquals(expectedValue, result);
     }
