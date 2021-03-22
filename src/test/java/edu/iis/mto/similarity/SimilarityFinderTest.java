@@ -60,8 +60,7 @@ class SimilarityFinderTest {
             if (elem < 5) {
                 findCount++;
                 builder.withFound(true);
-            }
-            else
+            } else
                 builder.withFound(false);
 
             return builder.build();
@@ -149,7 +148,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void passArrayOfFiveElementsShouldInvokeMethodFiveTimes(){
+    void passArrayOfFiveElementsShouldInvokeMethodFiveTimes() {
         int expectedValue = 5;
 
         similarityFinder = new SimilarityFinder(searcherWithInvocationCount);
@@ -159,7 +158,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void passEmptyArrayElementsShouldNotInvokeMethod(){
+    void passEmptyArrayElementsShouldNotInvokeMethod() {
         int expectedValue = 0;
 
         similarityFinder = new SimilarityFinder(searcherWithInvocationCount);
@@ -169,7 +168,7 @@ class SimilarityFinderTest {
     }
 
     @Test
-    void passArrayOfFiveElementsShouldFindTwoElements(){
+    void passArrayOfFiveElementsShouldFindTwoElements() {
         int expectedValue = 2;
 
         similarityFinder = new SimilarityFinder(searcherThatReturnsTrueForNumberSmallerThanFiveWithFindCount);
@@ -177,6 +176,4 @@ class SimilarityFinderTest {
 
         assertEquals(expectedValue, findCount);
     }
-
-
 }
